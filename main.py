@@ -17,8 +17,9 @@ def main():
 def simulate(output_file: Path):
     dut = Project()
     sim = Simulator(dut)
-    sim.run()
-    sim.write_vcd(output_file)
+    sim.add_clock(1e-6)
+    with sim.write_vcd(str(output_file)):
+        sim.run_until(1e-6 * 15)
 
 
 @main.command()
